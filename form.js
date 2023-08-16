@@ -2,9 +2,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const signupForm = document.getElementById('signup-form');
     const loginForm = document.getElementById('login-form');
 
+    // ... Signup code ...
     signupForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      // ... Signup code ...
+
       const username = document.getElementById('signup-username').value;
 const email = document.getElementById('signup-email').value;
 const phone = document.getElementById('signup-phone').value;
@@ -41,10 +42,10 @@ try {
 }
 
     });
-
+    //login code
     loginForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      // ... Login code ...
+      
       const loginCredential = document.getElementById('login-credential').value;
 const loginPassword = document.getElementById('login-password').value;
 
