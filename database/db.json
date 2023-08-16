@@ -1,40 +1,16 @@
 {
   "users": [
     {
-      "username": "Ali",
+      "username": "Ali Hamza",
       "email": "ali@gmail.com",
-      "phone": "03445678643",
-      "password": "1234@as",
-      "age": "67",
-      "address": "lhr",
-      "id": 1
+      "password": "1234567@as",
+      "id": 6
     },
     {
-      "username": "hamza",
-      "email": "h@gmail.com",
-      "phone": "03445678642",
-      "password": "123@as",
-      "age": "76",
-      "address": "kharachi",
-      "id": 2
-    },
-    {
-      "username": "Asad",
-      "email": "asad@gmail.com",
-      "phone": "03445678645",
-      "password": "12345@as",
-      "age": "34",
-      "address": "Multan",
-      "id": 3
-    },
-    {
-      "username": "Ab",
-      "email": "ab@gmail.com",
-      "phone": "03445678641",
-      "password": "123456@as",
-      "age": "29",
-      "address": "Ryk",
-      "id": 4
+      "username": "Ali",
+      "email": "alihamza@gmail.com",
+      "password": "as@12345",
+      "id": 7
     }
   ]
 }
