@@ -34,8 +34,8 @@ const signupButton = document.getElementById('signup-link');
           authEmail.setAttribute('placeholder', 'Email');
           authPassword.setAttribute('placeholder', 'Password');
           authConfirmPassword.setAttribute('placeholder', 'Confirm Password');
-          authEmail.setAttribute('required', 'required'); // Add required attribute
-          authConfirmPassword.setAttribute('required', 'required'); // Add required attribute
+          authEmail.setAttribute('required', 'required'); 
+          authConfirmPassword.setAttribute('required', 'required'); 
       });
   
       loginLink.addEventListener('click', () => {
@@ -44,8 +44,8 @@ const signupButton = document.getElementById('signup-link');
           authConfirmPassword.style.display = 'none';
           authSubmit.textContent = 'Login';
           authUsername.setAttribute('placeholder', 'Username / Email');
-          authEmail.removeAttribute('required'); // Remove required attribute
-          authConfirmPassword.removeAttribute('required'); // Remove required attribute
+          authEmail.removeAttribute('required'); 
+          authConfirmPassword.removeAttribute('required'); 
       });
   
       authForm.addEventListener('submit', async (e) => {
@@ -99,7 +99,7 @@ const signupButton = document.getElementById('signup-link');
               }
           } else {
               try {
-                  const response = await fetch('http://localhost:3000/users'); // Replace with your URL
+                  const response = await fetch('http://localhost:3000/users'); 
                   const users = await response.json();
   
                   const foundUser = users.find(user => (
