@@ -1,95 +1,120 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const signupForm = document.getElementById('signup-form');
-    const loginForm = document.getElementById('login-form');
-
-    signupForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      
-      const signupUsername = document.getElementById('signup-username').value;
-      const signupEmail = document.getElementById('signup-email').value;
-      const signupPassword = document.getElementById('signup-password').value;
-      const signupConfirmPassword = document.getElementById('signup-confirm-password').value;
-      
-      if (signupPassword.length < 6) {
-        alert('Password should be at least 6 characters long.');
-        return;
-      }
-      
-      if (signupPassword !== signupConfirmPassword) {
-        alert('Passwords do not match.');
-        return;
-      }
-
-      try {
-        const usersResponse = await fetch('http://localhost:3000/users');
-        const users = await usersResponse.json();
-        
-        const existingUserByUsername = users.find(user => user.username === signupUsername);
-        if (existingUserByUsername) {
-          alert('Username already exists. Please choose a different username.');
-          return;
-        }
-        
-        const existingUserByEmail = users.find(user => user.email === signupEmail);
-        if (existingUserByEmail) {
-          alert('Email already exists. Please use a different email.');
-          return;
-        }
-        
-        const newUser = {
-          username: signupUsername,
-          email: signupEmail,
-          password: signupPassword,
-        };
-        
-        const response = await fetch('http://localhost:3000/users', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(newUser),
-        });
-      
-        if (response.ok) {
-          alert('User registered successfully!');
-          signupForm.reset();
-        } else {
-          alert('An error occurred. Please try again.');
-        }
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    });
-
-    //login code
-    loginForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      const loginCredential = document.getElementById('login-credential').value;
-const loginPassword = document.getElementById('login-password').value;
-
-try {
-  const response = await fetch('http://localhost:3000/users');
-  const users = await response.json();
-
-  const foundUser = users.find(user => {
-    return (
-      user.username === loginCredential ||
-      user.email === loginCredential ||
-      user.phone === loginCredential
-    );
-  });
-
-  if (foundUser && foundUser.password === loginPassword) {
-    alert('Login successful!');
-    // Clear the login form fields
-    document.getElementById('login-credential').value = '';
-    document.getElementById('login-password').value = '';
-  } else {
-    alert('User not found or incorrect password.');
-  }
-} catch (error) {
-  console.error('Error:', error);
-}
-});
-  });
+const signupButton = document.getElementById('signup-link');
+      const loginButton = document.getElementById('login-link');
+  
+      signupButton.addEventListener('click', () => {
+          signupButton.classList.add('clicked');
+          loginButton.classList.remove('clicked');
+      });
+  
+      loginButton.addEventListener('click', () => {
+          loginButton.classList.add('clicked');
+          signupButton.classList.remove('clicked');
+      });
+  
+      const authForm = document.getElementById('auth-form');
+      const authUsername = document.getElementById('auth-username');
+      const authEmail = document.getElementById('auth-email');
+      const authPassword = document.getElementById('auth-password');
+      const authConfirmPassword = document.getElementById('auth-confirm-password');
+      const authSubmit = document.getElementById('auth-submit');
+      const signupLink = document.getElementById('signup-link');
+      const loginLink = document.getElementById('login-link');
+  
+      const toggleForms = (activeForm) => {
+          authForm.classList.remove('active');
+          activeForm.classList.add('active');
+      };
+  
+      signupLink.addEventListener('click', () => {
+          toggleForms(authForm);
+          authEmail.style.display = 'block';
+          authConfirmPassword.style.display = 'block';
+          authSubmit.textContent = 'Sign Up';
+          authUsername.setAttribute('placeholder', 'Username');
+          authEmail.setAttribute('placeholder', 'Email');
+          authPassword.setAttribute('placeholder', 'Password');
+          authConfirmPassword.setAttribute('placeholder', 'Confirm Password');
+          authEmail.setAttribute('required', 'required'); // Add required attribute
+          authConfirmPassword.setAttribute('required', 'required'); // Add required attribute
+      });
+  
+      loginLink.addEventListener('click', () => {
+          toggleForms(authForm);
+          authEmail.style.display = 'none';
+          authConfirmPassword.style.display = 'none';
+          authSubmit.textContent = 'Login';
+          authUsername.setAttribute('placeholder', 'Username / Email');
+          authEmail.removeAttribute('required'); // Remove required attribute
+          authConfirmPassword.removeAttribute('required'); // Remove required attribute
+      });
+  
+      authForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+  
+          const username = authUsername.value;
+          const email = authEmail.value;
+          const password = authPassword.value;
+  
+          if (!username || !password) {
+              alert('Please fill in the required fields.');
+              return;
+          }
+  
+          if (authSubmit.textContent === 'Sign Up') {
+              const confirmPassword = authConfirmPassword.value;
+  
+              if (!email || !confirmPassword) {
+                  alert('Please fill in the required fields.');
+                  return;
+              }
+  
+              if (password !== confirmPassword) {
+                  alert('Passwords do not match.');
+                  return;
+              }
+  
+              try {
+                  const newUser = {
+                      username: username,
+                      email: email,
+                      password: password,
+                  };
+  
+                  const signupResponse = await fetch('http://localhost:3000/users', {
+                      method: 'POST',
+                      headers: {
+                          'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify(newUser),
+                  });
+  
+                  if (signupResponse.ok) {
+                      alert('User registered successfully!');
+                      authForm.reset();
+                  } else {
+                      alert('An error occurred. Please try again.');
+                  }
+              } catch (error) {
+                  console.error('Error:', error);
+              }
+          } else {
+              try {
+                  const response = await fetch('http://localhost:3000/users'); // Replace with your URL
+                  const users = await response.json();
+  
+                  const foundUser = users.find(user => (
+                      user.username === username ||
+                      user.email === username
+                  ));
+  
+                  if (foundUser && foundUser.password === password) {
+                      alert('Login successful!');
+                      authForm.reset();
+                  } else {
+                      alert('User not found or incorrect password.');
+                  }
+              } catch (error) {
+                  console.error('Error:', error);
+              }
+          }
+      });

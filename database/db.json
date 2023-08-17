@@ -1,16 +1,16 @@
 {
   "users": [
     {
-      "username": "Ali Hamza",
-      "email": "ali@gmail.com",
-      "password": "1234567@as",
-      "id": 6
+      "username": "Saddi ch",
+      "email": "sadi@gmail.com",
+      "password": "123@asd",
+      "id": 15
     },
     {
       "username": "Ali",
-      "email": "alihamza@gmail.com",
-      "password": "as@12345",
-      "id": 7
+      "email": "ali@gmail.com",
+      "password": "1234567@a",
+      "id": 16
     }
   ]
 }
